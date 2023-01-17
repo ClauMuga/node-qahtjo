@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MasterBase®</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Last-Modified" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <link rel="icon"
+    href="https://out.filebunker.com/I1014/61ce14d8777de1001927a5b4/emesh1oo6mlicyueogivhdlu46q8e3ltcxbuph8ticggvgih0r0wp7ywm74jyazd"
+    type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://solounclic.cl/files/v3/bootstrap5-2.css">
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+  <script src="https://kit.fontawesome.com/ff13f47a46.js" crossorigin="anonymous"></script>
+
+  <!-- estilos -->
+  <link rel="stylesheet" type="text/css" href="https://solounclic.cl/files/v7/style.css">
+
+  <!-- mis script -->
+  <script type="text/javascript" src="https://solounclic.cl/files/v7/scriptNew.js"></script>
+  
+  <style>
+
+  </style>
+</head>
+
+<body>
+  
+  <div class="load_image" id="load_image"></div>
+
+  <!-- Parte superior -->
+  <div class="container">
+    <div>
+      <div style="float:right">
+        <a href="https://smartview.masterbase.com/v1/6345775e434325174d5f3d00/">
+          <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnHome" value="#! MB.data.data.btn_RegresarInicio !#">
+        </a>
+      </div>
+
+      <h3 class="mt-3">#! MB.data.data.view_tituloVistaNew !#</h3>
+      <p>#! MB.data.data.view_subtituloVistaNew !#</p>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Cuerpo del Formulario -->
+  <div class="container">
+    <div class="row ml-0 mb-0">
+      <form id="formDetail" action="#" enctype="multipart/form-data" method="post">
+        <div>
+          <p class="text-justify" id="partTextInicio">#! MB.data.data.view_textoVistaNew !#</p>
+        </div>
+  
+          <div id="datosPlan">
+            <span id="userConnected" style="display:none">#! MB.session.user.name !#</span>
+            <span id="mesCurso" style="display:none"></span>
+            <span id="diasRestantes" style="display:none"></span>
+            <span id="diasMes" style="display:none"></span>
+            <span id="diaProxFact" style="display:none"></span>
+            <span id="monedaPlan" style="display:none"></span>
+            <span id="dias30Mas" style="display:none"></span>
+            <p style="color:#243b55" class="ext-left mb-0 mt-3 h4" id="selectSaludo">#! MB.data.data.txt_Saludo !# <span id="userConnected">#! MB.session.user.name !#</span>!</p>
+            <p style="color:#243b55" class="ext-left mb-0 mt-3 h5" id="selectPais">#! MB.data.data.txt_SeleccionaPais !#</p>
+            <!-- <hr> -->
+            <br>
+            <div class="form-row mr-1">
+
+              <!-- Selección de Pais -->
+              <div id="partSelectPais">
+
+                <div class="form-floating col-md-3">
+                  <select class="form-select" id="pais" name="pais" size=1 required>
+                    <option value="">#! MB.data.data.txt_OptionSelect !#</option>
+                    <option selected="selected" value="#!MB.data.data.userCountry!#">#!MB.data.data.userCountry!#</option>
+                    #!# each MB.data.data.paises !#
+                      <option value="#!this!#">#!this!#</option>
+                    #!/each!#
+                  </select>
+                  <label for="pais" id="lblPais">#! MB.data.data.txt_Pais !#:</label>
+                  <div class="row g-1 col-md-6 p-1">
+                    <button href="#" type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnSiguiente1" onclick="autorizado()" disabled="disabled">#! MB.data.data.btn_Siguiente !#</button>
+                  </div>
+                </div>
+
+              <p class="h4" id="autorizado2">#!autorizado!#</p>
+              </div>
+
+              <!-- Selección de tipoPersona -->
+              <div id="partTipoPersona" style="display:none;">
+                <p class="ext-left mb-0 mt-3 h5" id="selectTipoPersona">#! MB.data.data.txt_tituloSeleccionEntidad !#</p>
+                <br>
+                <div class="form-floating col-md-3">
+                  <select class="form-select" id="entityType">
+                    <option value="">#! MB.data.data.txt_OptionSelect !#</option>
+                    <option value="PN">#! MB.data.data.txt_PN !#</option>
+                    <option value="PJ">#! MB.data.data.txt_PJ !#</option>
+                  </select>
+                  <label for="entityType" id="lblEntityType">#! MB.data.data.txt_TipoEntidad !#:</label>
+                  <div class="row g-1 col-md-6 p-1">
+                    <button href="#" type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnSiguiente2" onclick="traePrecios()" disabled="disabled">#! MB.data.data.btn_Siguiente !#</button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="clonPaisPersona" style="display:none">
+                <div class="row g-2">
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="clonPais" disabled>
+                      <label for="clonPais">#! MB.data.data.txt_Pais !#:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="clonPersona" disabled>
+                      <label for="clonPersona">#! MB.data.data.txt_TipoEntidad !#:</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Selección de Plan -->
+              <div id="partSelectPlan" style="display:none;">
+              <p class="ext-left mb-0 mt-3 h5">#! MB.data.data.txt_tituloSeleccionPlan !#</p>
+              <br>
+    
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+
+                  <div class="col" style="margin-top: 30px; margin-left: auto; margin-right: auto;">
+                  <!-- <div class="form-check"> -->
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        <div class="card h-100" id="card1">
+                          <div class="card-body">
+                            <p class="card-title text-center"><span id="_nombrePlanTrial" class="h4">#! MB.data.data.grid_modNombrePlanTrial !#</span> </p>
+                            <p class="card-title text-center"><span class="h5" id="monedaFree2">#!monedaFree!#</span> <span class="h4" id="precioFree2" style="font-weight: 700;">#!precioFree!#</span><span id="periodicidadFree2">#!periodicidadFree!#</span></p>
+                            <!-- <p class="card-title text-center"><span class="h4" id="precioFree2">#!precioFree!#</span> </p> -->
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item text-center"><b>#! MB.data.data.grid_modTxtAutomataTrial !#</b></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasFree2">#!horasFree!#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinFree2">#!numAutoMinFree!#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxFree2">#!numAutoMaxFree!#</span></li>
+                              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+                              <input id="horasFree" name="horasFree" type="hidden">
+                              <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            </ul>
+                          </div>
+                        </div>
+                      </label>
+                  <!-- </div> -->
+                  </div>
+
+                  <div class="col" style="margin-top: 30px; margin-left: auto; margin-right: auto;">
+                    <!-- <div class="form-check"> -->
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          <div class="card h-100" id="card2">
+                            <div class="card-body">
+                              <p class="card-title text-center"><span id="_nombrePlanPro" class="h4">#! MB.data.data.grid_modNombrePlanPro !#</span> </p>
+                              <p class="card-title text-center"><span class="h5" id="monedaPro2">#!monedaPro!#</span> <span class="h4" id="precioPro2" style="font-weight: 700;">#! $formatNumber precioPro '#.###,00' !#</span><span id="periodicidadPro2">#!periodicidadPro!#</span></p>
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomata !#</li>
+                                <li class="list-group-item text-center">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasPro2">#!horasPro!#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                                <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinPro2">#!numAutoMinPro!#</span></li>
+                                <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxPro2">#!numAutoMaxPro!#</span></li>
+                                <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+                                <input id="precioPro" name="precioPro" type="hidden">
+                                <input id="horasPro" name="horasPro" type="hidden">
+                                <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                              </ul>
+                            </div>
+                          </div>
+                        </label>
+                    <!-- </div> -->
+                    </div>
+
+                  <div class="col" style="margin-top: 30px; margin-left: auto; margin-right: auto;">
+                  <!-- <div class="form-check"> -->
+                      <label class="form-check-label" for="flexRadioDefault3">
+                        <div class="card h-100" id="card3">
+                          <div class="card-body">
+                            <p class="card-title text-center"><span id="_nombrePlanBusi" class="h4">#! MB.data.data.grid_modNombrePlanBusi !#</span> </p>
+                            <p class="card-title text-center"><span class="h5" id="monedaBusi2">#!monedaBusi!#</span> <span class="h4" id="precioBusi2" style="font-weight: 700;">#! $formatNumber precioBusi '#.###,00' !#</span><span id="periodicidadBusi2">#!periodicidadBusi!#</span></p>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomata !#</li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasBusi2">#!horasBusi!#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinBusi2">#!numAutoMinBusi!#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxBusi2">#!numAutoMaxBusi!#</span></li>
+                              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+                              <input id="precioBusi" name="precioBusi" type="hidden">
+                              <input id="horasBusi" name="horasBusi" type="hidden">
+                              <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                            </ul>
+                          </div>
+                        </div>
+                      </label>
+                  <!-- </div> -->
+                  </div>
+
+                  <div class="col" style="margin-top: 30px; margin-left: auto; margin-right: auto;">
+                  <!-- <div class="form-check"> -->
+                      <label class="form-check-label" for="flexRadioDefault4">
+                        <div class="card h-100" id="card4">
+                          <div class="card-body">
+                            <p class="card-title text-center"><span id="_nombrePlanCorp" class="h4">#! MB.data.data.grid_modNombrePlanCorp !#</span> </p>
+                            <p class="card-title text-center"><span class="h5" id="monedaCorp2">#!monedaCorp!#</span> <span class="h4" id="precioCorp2" style="font-weight: 700;">#! $formatNumber precioCorp '#.###,00' !#</span><span id="periodicidadCorp2">#!periodicidadCorp!#</span></p>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomata !#</li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasCorp2">#!horasCorp!#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinCorp2">#!numAutoMinCorp!#</span></li>
+                              <li class="list-group-item text-center">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxCorp2">#!numAutoMaxCorp!#</span></li>
+                              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
+                              <input id="precioCorp" name="precioCorp" type="hidden">
+                              <input id="horasCorp" name="horasCorp" type="hidden">
+                              <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                            </ul>
+                          </div>
+                        </div>
+                      </label>
+                  <!-- </div> -->
+                  </div>
+                </div>
+              </div> <!-- Cierre Selección de Plan -->
+
+              <!-- Número de automatas -->
+              <!-- style="display:none;" -->
+              <div id="partNumAutomata" style="display:none;">
+                <br>
+                <div class="row g-2">
+                  <div class="form-floating col-md-3">
+                    <input type="number" class="form-control" id="numAutomatas" name="numAutomatas" required placeholder="Ingrese número" step="1" min="1" max="9999" onkeyup="cal();" onchange="cal();">
+                    <label for="numAutomatas">#! MB.data.data.lblInput_NumeroAutomatas !#:</label>
+                  </div>
+                  <input type="hidden" id="_numAutomata" name="_numAutomata" class="form-control" readonly="readonly">
+                  <div class="form-floating col-md-3">
+                    <input type="text" class="form-control" id="_precioAutomata" name="_precioAutomata" readonly="readonly">
+                    <label for="_precioAutomata">#! MB.data.data.lblInput_PrecioNetoAutomata !#:</label>
+                  </div>
+                  
+                  <input type="hidden" id="_horasAutomata" name="_horasAutomata" readonly="readonly">
+                  <input type="hidden" id="_planSelect" name="_planSelect" readonly="readonly">
+                  <input type="hidden" id="_precioPlan" name="_precioPlan" readonly="readonly">
+
+                  <div class="form-floating col-md-3">
+                    <input type="text" class="form-control" id="_horasTotales" name="_horasTotales" readonly="readonly">
+                    <label for="_horasTotales">#! MB.data.data.lblInput_TotalHorasAutomatas !#:</label>
+                  </div>
+                  <div class="form-floating col-md-3">
+                    <input type="text" class="form-control" id="_montoNeto" name="_montoNeto" readonly="readonly">
+                    <label for="_montoNeto" id="_lblMontoNeto"></label>
+                  </div>
+                  <input type="hidden" id="porcIVA2" readonly="readonly" value="#!porcIVA!#">
+                  <input type="hidden" id="porcRetencion2" readonly="readonly" value="#!porcRetencion!#">
+                  <!-- <th>Monto Retención (<span id="porcRetencion2" style="font-weight: 700;">#!porcRetencion!#</span>%):</th> -->
+                  <!-- <th>Monto IVA (<span id="porcIVA2" style="font-weight: 700;"></span>%):</th> -->
+                </div>
+
+                <div class="container" id="mensajeDatosPlan">
+                  <div class="row g-2 mt-3 px-3">
+                    <p class="text" id="newResultado" align="left" style="font-size: 14px"></p>
+                  </div>
+                </div>
+
+                  <div class="row g-1 col-md-3 p-1">
+                    <button href="#" type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnSiguiente3" onclick="aceptaPlan()" disabled="disabled">#! MB.data.data.txt_AceptoPlan !#</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Datos Resumen Plan Seleccionado -->
+            <div id="_datosPlanSelect" style="display:none;">
+              <h4 class="ext-left mb-0 mt-3">#! MB.data.data.txt_tituloResumenPlan !#</h4>
+              <hr>
+              <div class="row g-2">
+                <!-- Pais -->                
+                <div class="form-floating col-md-4">
+                    <input type="text" class="form-control text-uppercase" id="_country" name="_country" readonly="readonly">
+                    <label for="_country">#! MB.data.data.txt_Pais !#:</label>
+                </div>
+
+                <!-- tipoPersona -->
+                <div class="form-floating col-md-4">
+                  <input type="text" class="form-control text-uppercase" id="_entityType" name="_entityType" readonly="readonly">
+                  <label for="_entityType">#! MB.data.data.txt_TipoEntidad !#:</label>
+                </div>
+
+                <!-- tipoPersona -->
+                <div class="form-floating col-md-4">
+                  <input type="text" class="form-control text-uppercase" id="_plan" name="_plan" readonly="readonly">
+                  <label for="_plan">#! MB.data.data.txt_PlanSeleccionado !#:</label>
+                </div>
+
+                <!-- NumeroAutomatas -->
+                <div class="form-floating col-md-4">
+                  <input type="text" class="form-control text-uppercase" id="_numeroAutomatas" name="_numeroAutomatas" readonly="readonly">
+                  <label for="_numeroAutomatas">#! MB.data.data.txt_NumeroAutomatas !#:</label>
+                </div>
+
+                <!-- tipoMoneda -->
+                <div class="form-floating col-md-4">
+                  <input type="text" class="form-control text-uppercase" id="_moneda" name="_moneda" readonly="readonly">
+                  <label for="_moneda">#! MB.data.data.txt_Moneda !#:</label>
+                </div>
+
+                <!-- Valor Total -->
+                <div class="form-floating col-md-4">
+                  <input type="text" class="form-control text-uppercase" id="_valorTotal" name="_valorTotal" readonly="readonly">
+                  <label for="_valorTotal" id="_lblValorTotal"></label>
+                </div>
+
+              </div>
+            </div>
+
+            
+            <!-- nombre Billing Account -->
+            <!-- style="display:none;" -->
+            <div id="_nombreBACC" style="display:none;">
+              <br>
+              <h4 class="ext-left mb-0 mt-3">#! MB.data.data.txt_titulo_NombreBACC !#</h4>
+              <hr>
+              <div class="row g-2">
+
+                <!-- Ingreso de Nro de Contacto -->
+                <div class="form-floating col-md-3">
+                  <input type="text" class="form-control" id="nameBACC" name="nameBACC" placeholder="Ingrese Nombre Billing Account" required>
+                  <label for="nameBACC">#! MB.data.data.txt_titulo_NombreBACC !#: <a class="fas fa-info-circle"></a></label>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Datos Personales -->
+            <!-- style="display:none;" -->
+            <div id="_datosPersonales" style="display:none;">
+              <br>
+              <h4 class="ext-left mb-0 mt-3">#! MB.data.data.txt_titulo_DatosPersonales !#</h4>
+              <hr>
+              <div class="row g-2">
+
+                <!-- Ingreso de Name -->
+                <div class="form-floating col-md-3">
+                  <input type="text" class="form-control text-uppercase" id="nameContact" name="nameContact" value="#! MB.session.user.name !#" readonly="readonly" required>
+                  <label for="nameContact">#! MB.data.data.grid_DP_Nombre !#:</label>
+                </div>
+
+                <!-- Ingreso de LastName -->
+                <div class="form-floating col-md-3">
+                  <input type="text" class="form-control text-uppercase" id="lastName" name="lastName" value="#! MB.session.user.lastname !#" readonly="readonly" required>
+                  <label for="lastName">#! MB.data.data.grid_DP_Apellido !#:</label>
+                </div>
+
+                <!-- Ingreso de Correo -->
+                <div class="form-floating col-md-6">
+                  <input type="email" class="form-control" id="email" name="email" value="#! MB.session.user.userId !#" readonly="readonly" required>
+                  <label for="email">#! MB.data.data.grid_DP_Email !#:</label>
+                </div>
+
+                <!-- Ingreso de Nro de Contacto -->
+                <div class="form-floating col-md-3">
+                  <input type="phone" class="form-control" id="phoneContact" name="phoneContact" placeholder="Ingrese Nro de Contacto" required>
+                  <label for="phoneContact">#! MB.data.data.grid_DP_NumeroContacto !#:</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos Facturación -->
+            <!-- style="display:none;" -->
+            <div id="_datosFacturacion" style="display:none;">
+              <br>
+              <h4 class="ext-left mb-0 mt-3">#! MB.data.data.txt_titulo_DatosFacturacion !#</h4>
+              <hr>
+              <div class="row g-2 mb-2" id="divVatNumber" style="display:none;">
+                <!-- Ingreso de VAT Number -->
+                <div class="form-floating col-md-3" id="inputVatNumber">
+                  <input type="text" class="form-control text-uppercase" maxlength="12" id="vatNumber" name="vatNumber" placeholder="Ingrese VAT" required>
+                  <label for="vatNumber" id="_lblVatNumber">#!vatNumberName!#:</label>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <!-- Ingreso de Rut -->
+                <div class="form-floating col-md-3" id="inputRutDIV">
+                  <input type="text" class="form-control text-uppercase" maxlength="12" id="taxId" name="taxId" placeholder="Ingrese VAT" required>
+                  <label for="vatName" id="_lblVatName">#!vatName!#:</label>
+                </div>
+
+                <!-- Ingreso de Nombre Cliente / Razón Social -->
+                <div class="form-floating col-md-9" id="inputNameDIV">
+                  <input type="text" class="form-control text-uppercase" id="name" name="name" placeholder="Ingrese Nombre" required>
+                  <label for="name" id="_lblName">Nombre:</label>
+                </div>
+
+                <!-- Ingreso de Nombre Contacto Empresa -->
+                <div class="form-floating col-md-6" id="inputAttentionDIV">
+                  <input type="text" class="form-control text-uppercase" id="attention" name="attention" placeholder="Ingrese Nombre Contacto" required>
+                  <label for="attention">Nombre Contacto:</label>
+                </div>
+
+                <!-- Ingreso de Direccion Cliente -->
+                <div class="form-floating col-md-6" id="inputAddressDIV">
+                  <input type="text" class="form-control text-uppercase" id="address" name="address" placeholder="Ingrese Dirección" required>
+                  <label for="address" id="_lblAddress">Dirección:</label>
+                </div>
+
+                <!-- Ingreso de Ciudad -->
+                <div class="form-floating col-md-3" id="inputCityDIV">
+                  <input type="text" class="form-control text-uppercase" id="city" name="city" placeholder="Ingrese Ciudad" required>
+                  <label for="city" id="_lblCity">Ciudad:</label>
+                </div>
+
+                <!-- Ingreso de ZipCode -->
+                <div class="form-floating col-md-3" id="inputZipCodeDIV">
+                  <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Ingrese ZipCode" required>
+                  <label for="zip" id="_lblZipCode">Zip Code:</label>
+                </div>
+
+                <!-- Ingreso de Correo1 -->
+                <div class="form-floating col-md-6">
+                  <input type="email" class="form-control" id="email1" name="email1" value="#! MB.session.user.userId !#" required>
+                  <label for="email1" id="_lblEmail1">Email Contacto 1:</label>
+                </div>
+
+                <!-- Ingreso de Correo2 -->
+                <div class="form-floating col-md-6">
+                  <input type="email" class="form-control" id="email2" name="email2" placeholder="Ingrese email 2">
+                  <label for="email2" id="_lblEmail2">Email Contacto 2:</label>
+                </div>
+
+                <!-- Ingreso de Correo3 -->
+                <div class="form-floating col-md-6">
+                  <input type="email" class="form-control" id="email3" name="email3" placeholder="Ingrese email 3">
+                  <label for="email3" id="_lblEmail3">Email Contacto 3:</label>
+                </div>
+
+                <!-- Ingreso de Correo4 -->
+                <div class="form-floating col-md-6">
+                  <input type="email" class="form-control" id="email4" name="email4" placeholder="Ingrese email 4">
+                  <label for="email4" id="_lblEmail4">Email Contacto 4:</label>
+                </div>
+
+                <!-- Codigo Vendedor -->
+                <div class="form-floating col-md-2">
+                  <input type="text" class="form-control text-uppercase" id="codSell" name="codSell" placeholder="Ingrese Código Vendedor" onblur="traeVendedor()">
+                  <label for="codSell" id="_lblCodSell">Código Agente:</label>
+                </div>
+                <!-- Nombre Vendedor -->
+                <div id="_sellerName" class="form-floating col-md-4" style="display:none;">
+                  <input type="text" class="form-control" id="_lblSell" name="_lblSell" readonly="readonly">
+                  <label for="_lblSell">Nombre Agente:</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metodo Pago -->
+            <!-- style="display:none;" -->
+            <div id="_metodoPago" style="display:none;">
+              <br>
+              <h4 class="ext-left mb-0 mt-3">Método de Pago</h4>
+              <hr>
+              <div class="row g-2">
+                <!-- Selección de Forma de Pago -->
+                <div class="form-floating col-md-3">
+                  <select class="form-select" id="paymentMethod" name="paymentMethod" required>
+                    <option value="">Seleccione</option>
+                    <option value="TC">Tarjeta de Crédito</option>
+                    <option value="TRX">Crédito MasterBase</option>
+                    <!-- <option value="Trx">Crédito MasterBase</option> -->
+                  </select>
+                  <label for="paymentMethod">Forma de Pago:</label>
+                </div>
+              </div>
+
+              <br>
+
+              <div id="_camposTRX" style="display:none;" class="row g-2">
+                
+                <!-- campo1 -->
+                <div class="form-floating col-md-3" id="campo1_DIV" style>
+                  <input type="text" class="form-control" id="campo1" name="campo1" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo1">Nombre campo1:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+                <!-- campo2 -->
+                <div class="form-floating col-md-3" id="campo2_DIV" style>
+                  <input type="text" class="form-control" id="campo2" name="campo2" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo2">Nombre campo2:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+                <!-- campo3 -->
+                <div class="form-floating col-md-3" id="campo3_DIV" style>
+                  <input type="text" class="form-control" id="campo3" name="campo3" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo3">Nombre campo3:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+                <!-- campo4 -->
+                <div class="form-floating col-md-3" id="campo4_DIV" style>
+                  <input type="text" class="form-control" id="campo4" name="campo4" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo4">Nombre campo4:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+                <!-- campo5 -->
+                <div class="form-floating col-md-3" id="campo5_DIV" style>
+                  <input type="text" class="form-control" id="campo5" name="campo5" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo5">Nombre campo5:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+                
+                <!-- campo6 -->
+                <div class="form-floating col-md-3" id="campo6_DIV" style>
+                  <input type="text" class="form-control" id="campo6" name="campo6" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo6">Nombre campo6:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+                
+                <!-- campo7 -->
+                <div class="form-floating col-md-3" id="campo7_DIV" style>
+                  <input type="text" class="form-control" id="campo7" name="campo7" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo7">Nombre campo7:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+                
+                <!-- campo8 -->
+                <div class="form-floating col-md-3" id="campo8_DIV" style>
+                  <input type="text" class="form-control" id="campo8" name="campo8" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="campo8">Nombre campo8:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+              </div>
+
+              <div id="_camposTC" style="display:none;" class="row g-2">
+                <!-- Ingreso FriendlyName TC -->
+                <div class="form-floating col-md-3" id="inputfriendlyNameTC_DIV">
+                  <input type="text" class="form-control" id="friendlyNameTC" name="friendlyNameTC" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="friendlyNameTC">Nombre para Tarjeta de Crédito:</label>
+                  <!-- <div id="creditCard-validate"></div> -->
+                </div>
+
+                <!-- Ingreso Nro TC -->
+                <div class="form-floating col-md-3" id="inputCreditCardNumberDIV">
+                  <input type="text" class="form-control validaNros" id="creditCardNumber" name="creditCardNumber" onkeypress='return event.charCode >= 48 && event.charCode <= 57' autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxx xxxx xxxx xxxx" required>
+                  <label for="creditCardNumber">Número Tarjeta de Crédito:</label>
+                  <div id="creditCard-validate"></div>
+                </div>
+
+                <!-- Ingreso Fecha Vencimiento -->
+                <div class="form-floating col-md-3" id="inputDueDateDIV">
+                  <input type="text" class="form-control" id="dueDate" name="dueDate" placeholder="Ingrese Fecha Vcto." maxlength="5" pattern="[\d][\d][\x2F][\d][\d]" required>
+                  <label id="ttDueDate" for="dueDate">Fecha Vencimiento: <a class="fas fa-info-circle"></a></label>
+                </div>
+
+                <!-- Ingreso codigo 3 digitos -->
+                <div class="form-floating col-md-3" id="inputcvvDIV">
+                  <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Ingrese código verificación" minlength="3" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                  <label id="ttcvv" for="cvv">Código Verificación: <a class="fas fa-info-circle"></a></label>
+                </div>
+
+                <!-- Ingreso de Nombre TC -->
+                <div class="form-floating col-md-6" id="inputccNameDIV">
+                  <input type="text" class="form-control text-uppercase" id="ccName" name="ccName" placeholder="Ingrese Nombre" pattern="^[a-zA-Z\s]{2,40}" required>
+                  <label id="ttccName" for="ccName">Nombre: <a class="fas fa-info-circle"></a></label>
+                </div>
+
+                <!-- Ingreso de Direccion TC -->
+                <div class="form-floating col-md-6" id="inputccAddressDIV">
+                  <input type="text" class="form-control text-uppercase" id="ccAddress" name="ccAddress" placeholder="Ingrese Dirección" required>
+                  <label for="ccAddress">Dirección:</label>
+                </div>
+
+                <!-- Ingreso de Ciudad TC -->
+                <div class="form-floating col-md-6" id="inputccCityDIV">
+                  <!-- <input type="text" class="form-control text-uppercase" id="ccCity" name="ccCity" placeholder="Ingrese Ciudad" pattern="^[a-zA-Z\s]{2,40}" required> -->
+                  <input type="text" class="form-control text-uppercase" id="ccCity" name="ccCity" placeholder="Ingrese Ciudad" required>
+                  <label for="ccCity">Ciudad:</label>
+                </div>                
+              </div>
+
+              <!-- Info y btn Guardar -->
+              <div id="info_save" style="display:none;">
+                <div class="_infoComercial mt-3">
+                  <input class="form-check-input" type="checkbox" id="infoComercial" name="infoComercial">
+                    <label class="form-check-label" for="infoComercial"><p>Acepto recibir <strong>información comercial</strong> de Masterbase®</p></label>
+                </div>
+                <div class="_privacidad mt-0">
+                  <input class="form-check-input" type="checkbox" id="privacidad" name="privacidad">
+                    <label class="form-check-label" for="privacidad"><p>Acepto la <a href="https://www.es.masterbase.com/privacidad.html" target="_blank" class="privacidad-url">
+                      <strong>Política de Privacidad</strong></a> de Masterbase®</p></label>
+                </div>
+
+                <!-- Botón Guardar -->
+                <div class="container p-3">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary btn-lg" type="button" id="btnGuardar" name="btnGuardar" 
+                    onclick="verificar()" disabled="disabled">Contratar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <p class="h4" id="mensajeFinal" style="display:none;">#!mensajeFinal!#</p> -->
+
+
+          <div id="_resumenFinal" style="display:none;">
+            <table bgcolor="#f0f2f5" align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="640">
+              <tbody>
+                <tr>
+                  <td style="padding: 20px 0px 0px 0px; vertical-align: top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                      <tbody>
+                        <tr>
+                          <td style="background: #fff;border-radius: 5px;padding: 20px;">
+                            <table bgcolor="#F6F7F9" align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                              <tbody>
+                                <tr>
+                                  <td style="background: #fff;padding: 10px 20px;font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px;line-height: 18px; text-align: justify;">
+                                    <h4 id="_respBL"></h4>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 20px 0px 0px 0px; vertical-align: top; border-radius: 5px">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                      <tbody>
+                        <tr>
+                          <td style="background: #fff; border-radius: 10px; padding: 20px;">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                              <tbody>
+
+                                <tr>
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <legend class="mt-2" style="font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px"><strong>Resumen Plan Suscrito</strong></legend>
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>País:</strong></td>
+                                            <td id="_respRP_PaisUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Tipo Entidad:</strong></td>
+                                            <td id="_respRP_TipoEntidad" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Plan:</strong></td>
+                                            <td id="_respRP_TipoPlan" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Nombre Billing Account:</strong></td>
+                                            <td id="_respRP_NombreBACC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Número Autómatas:</strong></td>
+                                            <td id="_respRP_NroAutomatas" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Moneda:</strong></td>
+                                            <td id="_respRP_Moneda" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>Monto Mensual:</strong></td>
+                                            <td id="_respRP_MontoTotal" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <legend class="mt-2" style="font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px"><strong>Datos Personales</strong></legend>
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Nombre:</strong></td>
+                                            <td id="_respDP_NombreUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Apellido:</strong></td>
+                                            <td id="_respDP_ApellidoUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>E-mail:</strong></td>
+                                            <td id="_respDP_EmailUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>Número Contacto:</strong></td>
+                                            <td id="_respDP_PhonelUser" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <legend class="mt-2" style="font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px"><strong>Datos Facturación</strong></legend>
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td id="_respDF_VatName" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong></strong></td>
+                                            <td id="_respDF_VatId" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Nombre:</strong></td>
+                                            <td id="_respDF_Name" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td id="_respDF_NameContact_0" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Nombre Contacto:</strong></td>
+                                            <td id="_respDF_NameContact_1" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Dirección:</strong></td>
+                                            <td id="_respDF_Address" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Ciudad:</strong></td>
+                                            <td id="_respDF_City" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Zip Code:</strong></td>
+                                            <td id="_respDF_ZipCode" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td id="_respDF_Email1_0" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>E-mail Contacto 1:</strong></td>
+                                            <td id="_respDF_Email1_1" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td id="_respDF_Email2_0" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>E-mail Contacto 2:</strong></td>
+                                            <td id="_respDF_Email2_1" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td id="_respDF_Email3_0" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>E-mail Contacto 3:</strong></td>
+                                            <td id="_respDF_Email3_1" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td id="_respDF_Email4_0" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>E-mail Contacto 4:</strong></td>
+                                            <td id="_respDF_Email4_1" style="display:none; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>Código Agente:</strong></td>
+                                            <td id="_respDF_CodAgente" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <legend class="mt-2" style="font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px"><strong>Método de Pago</strong></legend>
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Forma de Pago:</strong></td>
+                                            <td id="_respMP_FormaPago" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Número Tarjeta de Crédito:</strong></td>
+                                            <td id="_respMP_NroCC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Fecha Vencimiento:</strong></td>
+                                            <td id="_respMP_FechaVcto" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Código Verificación:</strong></td>
+                                            <td id="_respMP_CodVerificacion" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Nombre:</strong></td>
+                                            <td id="_respMP_NameCC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Dirección:</strong></td>
+                                            <td id="_respMP_AddressCC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Ciudad:</strong></td>
+                                            <td id="_respMP_CityCC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>País:</strong></td>
+                                            <td id="_respMP_CountryCC" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+
+                                <tr>
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <legend class="mt-2" style="font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px"><strong>Otros</strong></legend>
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>Acepta Información Comercial:</strong></td>
+                                            <td id="_respOt_InfoComercial" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>Acepta Política de Privacidad:</strong></td>
+                                            <td id="_respOt_PoliticaPrivacidad" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 20px 0px 0px 0px; vertical-align: top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                      <tbody>
+                        <tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div><!-- cierre -->
+
+  <!-- <script src="https://solounclic.cl/files/v6/scriptNew_v6.js"></script> -->
+
+</body>
+</html>

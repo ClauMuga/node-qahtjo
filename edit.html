@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <title>MasterBase®</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Last-Modified" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <link rel="icon"
+    href="https://out.filebunker.com/I1014/61ce14d8777de1001927a5b4/emesh1oo6mlicyueogivhdlu46q8e3ltcxbuph8ticggvgih0r0wp7ywm74jyazd"
+    type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://www.cruzmuga.cl/masterbase/PA/css/bootstrap5-2.css">
+    
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+  <script src="https://kit.fontawesome.com/ff13f47a46.js" crossorigin="anonymous"></script>
+
+  <!-- estilos -->
+
+  <style>
+    * {
+      transition: all 0.3s ease-out;
+    }
+
+    body {
+      font-size: 0.8em;
+      background: #f0f2f5;
+      color: #212529;
+    }
+
+    p, h1, h2, h3, h4, h5, h6 {
+      color: #243b55;
+    }
+
+    a {
+      color: #17a2b8;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #17a2b8;
+      text-decoration: underline;
+    }
+
+    .table-wrap {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #ececec;
+    }
+
+    .btn {
+      font-size: 1em;
+    }
+
+    .card {
+      display: block;
+      top: 0px;
+      position: relative;
+      text-decoration: none;
+      border: 1px solid #f2f8f9;
+    }
+
+    .card:hover {
+      border: 1px solid #174e72;
+      z-index: 500;
+    }
+
+    .card:hover p {
+      color: #4198aa;
+    }
+
+    .card:hover .destaca {
+      color: #4198aa;
+    }
+
+    .destaca{
+      font-weight: 700;
+    }
+
+    .bordercolor {
+      border: 1px solid #4198aa;
+    }
+
+    #load_image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 9999999;
+      background: url("https://www.cruzmuga.cl/masterbase/PA/images/horizontal_MB_logo.png") no-repeat center center #f0f2f5;
+      animation: pulsos 2s infinite;
+    }
+
+    @keyframes pulsos {
+      from { transform: none; }
+      50% { transform: scale(1.4); }
+      to { transform: none; }
+    }
+
+    .tabla-texto {
+      width: 85%!important;
+      text-align: left;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .padding {
+      padding: 10px 15px 10px 15px !important;
+    }
+
+    input:invalid {
+      border: 1px solid red;
+    }
+
+    input:valid {
+    border:1px solid green;
+    }
+
+    #newResultado { 
+    white-space: pre-line; 
+    }
+
+    .deleteUser span:hover{
+      cursor: pointer;
+      color: #4198aa;
+      /* font-weight: 700; */
+    }
+
+    .modal-body ul li{
+      list-style: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="load_image" id="load_image"></div>
+
+  <!-- Parte superior -->
+  <div class="container">
+    <div>
+      <div style="float:right">
+        <a href="https://smartview.masterbase.com/v1/6345775e434325174d5f3d00/">
+          <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnHome" value="#! MB.data.data.btn_RegresarInicio !#">
+        </a>
+      </div>
+
+      <h3 class="mt-3">#! MB.data.data.view_tituloVistaEdit !#</h3>
+      <p>#! MB.data.data.view_subtituloVistaEdit !#</p>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Cuerpo del Formulario -->
+  <div class="container">
+    <div class="row ml-0 mb-0">
+      <form id="formDetail" action="#" enctype="multipart/form-data" method="post">
+
+        #!#if ($eq MB.data.data.traeRespuesta 'NODATA') !#
+          <p class="h4" style="color:#243b55">#! MB.session.user.name !#, #! MB.data.data.txt_sinAutorizacion !#</p>
+        #!/if!#
+        #!#if ($eq MB.data.data.traeRespuesta 'ERROR') !#
+          <p class="h4" style="color:#243b55">#! MB.session.user.name !#, #! MB.data.data.txt_sinAutorizacion !#</p>
+        #!/if!#
+
+        #!#if ($eq MB.data.data.traeRespuesta 'OK') !#
+          <span id="userConnected" style="display:none">#! MB.session.user.name !#</span>
+          <span id="mesCurso" style="display:none">#! MB.data.data.mes !#</span>
+          <span id="diasRestantes" style="display:none">#! MB.data.data.diasRestantes !#</span>
+          <span id="horasPlan" style="display:none">#! MB.data.data.horasPlan !#</span>
+          <span id="horasTotalPlan" style="display:none">#! MB.data.data.horasTotalPlan !#</span>
+          <span id="valorAutomata" style="display:none">#! MB.data.data.precioAutomata !#</span>
+          <span id="diaProxFact" style="display:none">#! MB.data.data.diaProxFact !#</span>
+
+          <div id="_edicionDatos">
+            <table bgcolor="#f0f2f5" align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="640">
+              <tbody>
+
+                <tr>
+                  <td style="padding: 20px 0px 0px 0px; vertical-align: top; border-radius: 5px">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                      <tbody>
+                        <tr>
+                          <td style="background: #fff; border-radius: 10px; padding: 20px;">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                              <tbody>
+
+                                <tr id="secDatosPlanSuscrito">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                    
+                                    <div>
+                                      <div style="float:right; padding: 0px 30px 2px 0px;">
+                                        <a href="#">
+                                          <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaPlan" onclick="modificaPlan()" value="#! MB.data.data.btn_PS_ModificarPlan !#">
+                                        </a>
+                                      </div>
+                                      <div align="left" style="padding: 0px 0px 0px 60px;">
+                                        <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloPlanSuscrito !#</strong></h6>
+                                      </div>
+                                    </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr style="display:none;">
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>idRegistro:</strong></td>
+                                            <td id="_modRP_idRegistro" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_idRegistro !#</td>
+                                          </tr>
+                                          <tr style="display:none;">
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>billingAccount:</strong></td>
+                                            <td id="_modRP_billingAccount" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_billingAccount !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_Pais !#:</strong></td>
+                                            <td id="_modRP_PaisUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_paisUser !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_TipoEntidad !#:</strong></td>
+                                            <td id="_modRP_TipoEntidad" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_tipoEntidad !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_Plan !#:</strong></td>
+                                            <td id="_modRP_TipoPlan" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_tipoPlan !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_NombreBACC !#:</strong></td>
+                                            <td id="_modRP_NombreBACC" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_nombreBACC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_NumeroAutomatas !#:</strong></td>
+                                            <td id="_modRP_NroAutomatas" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_nroAutomatas !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_TotalHorasMes !#:</strong></td>
+                                            <td id="_modRP_NroHoras" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.horasTotalPlan !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_PS_Moneda !#:</strong></td>
+                                            <td id="_modRP_Moneda" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeRP_Moneda !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>#! MB.data.data.grid_PS_MontoMensual !#:</strong></td>
+                                            <td id="_modRP_MontoTotal" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;">#! MB.data.data.traeRP_montoTotal !#</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secModDatosPlanSuscrito" style="display:none">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 13px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="right" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div class="container" id="headModDatosPlan">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div align="left" style="padding: 0px 0px 0px 40px;">
+                                            <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_modTituloPlanSuscrito !#</strong></h6>
+                                          </div>
+                                          <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnModificaPlan2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="bodyModDatosPlan">
+                                        <div class="row g-2 mt-2 px-3">
+                                        #!#if ($eq MB.data.data.traeEstado 'En proceso') !#
+                                        <div align="left" style="padding: 0px 0px 0px 30px;">
+                                          <p style="font-size: 14px; color:#243b55"><strong>#! MB.session.user.name !#, solo puedes realizar un cambio de plan al mes y ya solicitaste uno.</strong></p><br>
+                                        </div>
+                                        <!-- <strong><p align="left" style="font-size: 14px; color:#243b55">#! MB.session.user.name !#, solo puedes realizar un cambio de plan al mes y ya solicitaste uno.</p><strong></strong><br> -->
+                                        #!else !#
+
+                                          <div id="datosPlan">
+
+                                            <div class="row row-cols-1 row-cols-md-3 g-3">
+
+                                              <div class="col"> 
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                  <div class="card h-100" id="card2">
+                                                    <div class="card-body">
+                                                      <p class="card-title text-center"><span id="_nombrePlanPro" style="font-size: 18px">#! MB.data.data.grid_modNombrePlanPro !#</span> </p>
+                                                      <p class="card-title text-center"><span style="font-size: 14px" id="monedaPro2">#! MB.data.data.monedaPro !#</span> <span class="h4" id="precioPro2" style="font-weight: 700;">#! MB.data.data.precioPro !#</span><span id="periodicidadPro2">#! MB.data.data.periodicidadPro !#</span></p>
+                                                      <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomata !#</li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasPro2" style="font-weight: 700;">#! MB.data.data.horasPro !#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinPro2" style="font-weight: 700;">#! MB.data.data.numAutoMinPro !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxPro2" style="font-weight: 700;">#! MB.data.data.numAutoMaxPro !#</span></li>
+                                                        <input id="precioPro" name="precioPro" type="hidden" value="#!MB.data.data.precioPro!#">
+                                                        <input id="horasPro" name="horasPro" type="hidden" value="#!MB.data.data.horasPro!#">
+                                                        <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </label>
+                                              </div>
+
+                                              <div class="col">
+                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                  <div class="card h-100" id="card3">
+                                                    <div class="card-body">
+                                                      <p class="card-title text-center"><span id="_nombrePlanBusi" style="font-size: 18px">#! MB.data.data.grid_modNombrePlanBusi !#</span> </p>
+                                                      <p class="card-title text-center"><span style="font-size: 14px" id="monedaBusi2">#! MB.data.data.monedaBusi !#</span> <span class="h4" id="precioBusi2" style="font-weight: 700;">#! MB.data.data.precioBusi !#</span><span id="periodicidadBusi2">#! MB.data.data.periodicidadBusi !#</span></p>
+                                                      <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomata !#</li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasBusi2" style="font-weight: 700;">#! MB.data.data.horasBusi !#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinBusi2" style="font-weight: 700;">#! MB.data.data.numAutoMinBusi !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxBusi2" style="font-weight: 700;">#! MB.data.data.numAutoMaxBusi !#</span></li>
+                                                        <input id="precioBusi" name="precioBusi" type="hidden" value="#!MB.data.data.precioBusi!#">
+                                                        <input id="horasBusi" name="horasBusi" type="hidden" value="#!MB.data.data.horasBusi!#">
+                                                        <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </label>
+                                              </div>
+
+                                              <div class="col">
+                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                  <div class="card h-100" id="card4">
+                                                    <div class="card-body">
+                                                      <p class="card-title text-center"><span id="_nombrePlanCorp" style="font-size: 18px">#! MB.data.data.grid_modNombrePlanCorp !#</span> </p>
+                                                      <p class="card-title text-center"><span style="font-size: 14px" id="monedaCorp2">#! MB.data.data.monedaCorp !#</span> <span class="h4" id="precioCorp2" style="font-weight: 700;">#! MB.data.data.precioCorp !#</span><span id="periodicidadCorp2">#! MB.data.data.periodicidadCorp !#</span></p>
+                                                      <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomata !#</li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtHorasMes !#: <br><span class="destaca" id="horasCorp2" style="font-weight: 700;">#! MB.data.data.horasCorp !#</span><span class="destaca"> #! MB.data.data.grid_modTxtCadaUnidad !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMin !#: <br><span class="destaca" id="numAutoMinCorp2" style="font-weight: 700;">#! MB.data.data.numAutoMinCorp !#</span></li>
+                                                        <li class="list-group-item text-center" style="font-size: 12px">#! MB.data.data.grid_modTxtAutomatasMax !#: <br><span class="destaca" id="numAutoMaxCorp2" style="font-weight: 700;">#! MB.data.data.numAutoMaxCorp !#</span></li>
+                                                        <input id="precioCorp" name="precioCorp" type="hidden" value="#!MB.data.data.precioCorp!#">
+                                                        <input id="horasCorp" name="horasCorp" type="hidden" value="#!MB.data.data.horasCorp!#">
+                                                        <input class="form-check-input mx-auto" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </label>
+                                              </div>
+
+                                            </div>
+                                          </div> <!-- Cierre Selección de Plan -->
+
+                                          <!-- Número de automatas -->
+                                          <div id="partNumAutomata" class="gap-3">
+                                            <br>
+                                            <div class="row g-2">
+                                              <div class="form-floating col-md-3">
+                                                <input type="number" class="form-control" id="numAutomatas" name="numAutomatas" required placeholder="Ingrese número" step="1" min="1" max="9999" onkeyup="cal();" onchange="cal();">
+                                                <label for="numAutomatas">#! MB.data.data.PS_lblInput_NumeroAutomatas !#:</label>
+                                              </div>
+
+                                              <input type="hidden" id="_numAutomata" name="_numAutomata" class="form-control" readonly="readonly">
+
+                                              <div class="form-floating col-md-3">
+                                                <input type="text" class="form-control" id="_precioAutomata" name="_precioAutomata" readonly="readonly">
+                                                <label for="_precioAutomata">#! MB.data.data.PS_lblInput_PrecioNetoAutomata !#:</label>
+                                              </div>
+
+                                              <input type="hidden" id="_horasAutomata" name="_horasAutomata" readonly="readonly">
+                                              <input type="hidden" id="_planSelect" name="_planSelect" readonly="readonly">
+                                              <input type="hidden" id="_precioPlan" name="_precioPlan" readonly="readonly">
+
+                                              <div class="form-floating col-md-3">
+                                                <input type="text" class="form-control" id="_horasTotales" name="_horasTotales" readonly="readonly">
+                                                <label for="_horasTotales">#! MB.data.data.PS_lblInput_TotalHorasAutomatas !#:</label>
+                                              </div>
+
+                                              <div class="form-floating col-md-3">
+                                                <input type="text" class="form-control" id="_montoNeto" name="_montoNeto" readonly="readonly">
+                                                <label for="_montoNeto" id="_lblMontoNeto">#! MB.data.data.PS_lblInput_NuevoValorMensual !#:</label>
+                                              </div>
+
+                                              <input type="hidden" id="porcIVA2" readonly="readonly" value="#!porcIVA!#">
+                                              <input type="hidden" id="porcRetencion2" readonly="readonly" value="#!porcRetencion!#">
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="container" id="mensajeModModDatosPlan">
+                                        <div class="row g-2 mt-3 px-3">
+                                          <p class="text" id="newResultado" align="left" style="font-size: 14px"></p>
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="aceptaPoliticasModDatosPlan">
+                                        <div align="left" class="row row-cols-1 g-2 px-3">
+                                          <div >
+                                            <input class="form-check-input" type="checkbox" id="privacidad" name="privacidad">
+                                            <label class="form-check-label" for="privacidad"><p>#! MB.data.data.PS_txt_AceptoLa !# <a href="https://www.es.masterbase.com/privacidad.html" target="_blank" class="privacidad-url">
+                                              <strong>#! MB.data.data.PS_txt_PoliticaPrivacidad !#</strong></a><span> #! MB.data.data.PS_txt_de !# </span>Masterbase®</p>
+                                            </label>
+                                          </div>
+                                          <div></div>
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="footerModModDatosPlan">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div></div>
+                                          <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnGuardaCambioPlan" onclick="showDatosPlan()" value="#! MB.data.data.btn_PS_RealizarCambioPlan !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    #!/if!#
+
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="usuariosAdmin">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <a id="RegUserAdm" href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditarAdmin" onclick="editarUserAdmin()" value="#! MB.data.data.txt_btn_EditAdmin !#">
+                                          </a>
+                                          <a id="btnRegUserAdm" href="#" style="display: none;">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnRegUserAdm2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                          </a>
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloUsuariosAdmin !#</strong></h6>
+                                        </div>
+
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <thead>
+                                          <tr>
+                                            <!-- <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_UAd_idx !#</th> -->
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_UAd_name !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_UAd_email !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_UAd_created !#</th>
+                                            <th class="deleteUser" scope="col" style="display:none; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_UAd_action !#</th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                          #!#each MB.data.data.userAdmin !#
+                                            #!#if @last!#
+                                              <tr>
+                                                <!-- <td style="padding: 5px 0px 10px 0px">#! UAd_idUser !#</td> -->
+                                                <td style="padding: 5px 0px 10px 0px">#! UAd_name !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! UAd_email !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! UAd_created !#</td>
+                                                <td class="deleteUser" style="display:none; padding: 5px 0px 10px 0px;"><span onclick="showDeleteUserAdmin('#! UAd_idUser !#', '#! UAd_name !#', '#! UAd_email !#')"><u>#! UAd_txtDelete !#</u></span></td>
+                                              </tr>
+                                            #!else!#
+                                              <tr>
+                                                <!-- <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! UAd_idUser !#</td> -->
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! UAd_name !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! UAd_email !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! UAd_created !#</td>
+                                                <td class="deleteUser" style="display:none; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;"><span onclick="showDeleteUserAdmin('#! UAd_idUser !#', '#! UAd_name !#', '#! UAd_email !#')"><u>#! UAd_txtDelete !#</u></span></td>
+                                              </tr>
+                                            #!/if!#
+                                          #!/each!#
+
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                    <a href="#">
+                                      <input type="button" class="btn btn-primary btn-lg btn-block my-3" style="display: none;" id="btnAgregarAdmin" onclick="btnAgregarUserAdmin()" value="#! MB.data.data.txt_btn_AddAdmin !#">
+                                    </a>
+                                  </td>
+
+                                </tr>
+
+                                <tr id="secModUsuariosAdmin" style="display:none">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 13px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="right" width="100%" style="padding: 0px 0px 10px 0px; border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div class="container" id="headAddUserAdmin">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div align="left" style="padding: 0px 0px 0px 40px;">
+                                            <h6 class="mt-3" style="padding: 0px 0px 2px 0px;"></h6>
+                                            <!-- <h6 class="mt-3" style="padding: 0px 0px 2px 0px;"><strong>#! MB.data.data.view_modTituloAddUserAdmin !#</strong></h6> -->
+                                          </div>
+
+                                          <!-- <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaDatosPersonales2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                            </a>
+                                          </div> -->
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="bodyAddUserAdmin">
+                                        <div class="row g-2 mt-2 px-3">
+
+                                        <!-- Ingreso de Name -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="nameUserAdminX" name="nameUserAdminX" placeholder="Ingrese Nombre" required>
+                                          <label for="nameUserAdminX">#! MB.data.data.grid_DP_Nombre !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de LastName -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="lastNameUserAdminX" name="lastNameUserAdminX" placeholder="Ingrese Apellido" required>
+                                          <label for="lastNameUserAdminX">#! MB.data.data.grid_DP_Apellido !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="emailUserAdminX" name="emailUserAdminX" placeholder="Ingrese email" required>
+                                          <label for="emailUserAdminX">#! MB.data.data.grid_DP_Email !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Nro de Contacto -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="phone" style="font-size: 14px" class="form-control" id="phoneUserAdminX" name="phoneUserAdminX" placeholder="Ingrese Nro de Contacto" required>
+                                          <label for="phoneUserAdminX">#! MB.data.data.grid_DP_NumeroContacto !#:</label>
+                                        </div>
+
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="footerModDatosPersonales">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div></div>
+                                          <div id="DIV_btnAddUser">
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnSaveAddUserAdmin" onclick="showDatosUserAdmin()" value="#! MB.data.data.btn_DP_SaveAddUserAdmin !#">
+                                            </a>
+                                          </div>
+                                          <!-- <div id="DIV_btnEditUser" style="display: none;">
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnSaveEditUserAdmin" onclick="showDatosEditUserAdmin()" value="#! MB.data.data.btn_DP_SaveEditUserAdmin !#">
+                                            </a>
+                                          </div> -->
+                                        </div>
+                                      </div>
+
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="historialCambios">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <!-- <a href="#"> -->
+                                            <!-- <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditarMetodoPago" onclick="editarMetodoPago('#! traeRP_idRegistro !#')" value="Editar Método de Pago"> -->
+                                          <!-- </a> -->
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloHistorialCambios !#</strong></h6>
+                                        </div>
+
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Fecha !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Movimiento !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Plan !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Automatas !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Horas !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Monto !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_HC_Estado !#</th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                          #!#each MB.data.data.logCambios !#
+                                            #!#if @last!#
+                                              <tr>
+                                                <td style="padding: 5px 0px 10px 0px">#! fechaMov !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! movimiento !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! planNuevo !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! nroBotsNuevo !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! horas !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! $formatNumber monto "#,###.##" locale="en" !#</td>
+                                                <td style="padding: 5px 0px 10px 0px">#! estado !#</td>
+                                              </tr>
+                                            #!else!#
+                                              <tr>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! fechaMov !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! movimiento !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! planNuevo !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! nroBotsNuevo !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! horas !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! $formatNumber monto "#,###.##" locale="en" !#</td>
+                                                <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! estado !#</td>
+                                              </tr>
+                                            #!/if!#
+                                          #!/each!#
+
+                                        </tbody>
+
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secDatosPersonales">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <a href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaDatosPersonales" onclick="editarDatosPersonales()" value="#! MB.data.data.btn_DP_EditarDP !#">
+                                          </a>
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_titulo_DatosPersonales !#</strong></h6>
+                                        </div>
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_DP_Nombre !#:</strong></td>
+                                            <td id="_modDP_NombreUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDP_nombreUser !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_DP_Apellido !#:</strong></td>
+                                            <td id="_modDP_ApellidoUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDP_apellidoUser !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;"><strong>#! MB.data.data.grid_DP_Email !#:</strong></td>
+                                            <td id="_modDP_EmailUser" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDP_emailUser !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;"><strong>#! MB.data.data.grid_DP_NumeroContacto !#:</strong></td>
+                                            <td id="_modDP_PhonelUser" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;">#! MB.data.data.traeDP_phoneUser !#</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secModDatosPersonales" style="display:none">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 13px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="right" width="100%" style="padding: 0px 0px 10px 0px; border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div class="container" id="headModDatosPersonales">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div align="left" style="padding: 0px 0px 0px 40px;">
+                                            <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_modTituloDatosPersonales !#</strong></h6>
+                                          </div>
+
+                                          <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaDatosPersonales2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="bodyModDatosPersonales">
+                                        <div class="row g-2 mt-2 px-3">
+
+                                        <!-- Ingreso de Name -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="nameContact" name="nameContact" value="#! MB.session.user.name !#" readonly="readonly" required>
+                                          <label for="nameContact">#! MB.data.data.grid_DP_Nombre !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de LastName -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="lastName" name="lastName" value="#! MB.session.user.lastname !#" readonly="readonly" required>
+                                          <label for="lastName">#! MB.data.data.grid_DP_Apellido !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="email" name="email" value="#! MB.session.user.userId !#" readonly="readonly" required>
+                                          <label for="email">#! MB.data.data.grid_DP_Email !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Nro de Contacto -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="phone" style="font-size: 14px" class="form-control" id="phoneContact" name="phoneContact" placeholder="Ingrese Nro de Contacto" required value="#!MB.data.data.traeDP_phoneUser!#">
+                                          <label for="phoneContact">#! MB.data.data.grid_DP_NumeroContacto !#:</label>
+                                        </div>
+
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="footerModDatosPersonales">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div></div>
+                                          <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnGuardaDatosPersonales" onclick="guardarDatosPersonales()" value="#! MB.data.data.btn_DP_GuardarDatosPersonales !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secDatosFacturacion">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <a href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaDatosFacturacion" onclick="editarDatosFacturacion()" value="#! MB.data.data.btn_DF_EditarDF !#">
+                                          </a>
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloDatosFacturacion !#</strong></h6>
+                                        </div>
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td id="_modDF_VatName" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.traeDF_vatName !#</td>
+                                            <td id="_modDF_VatId" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_vatId !#</td>
+                                          </tr>
+                                          <tr>
+                                            #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_NombrePJ !#:</td>
+                                            #!else!#
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_NombrePN !#:</td>
+                                            #!/if!#
+                                            <td id="_modDF_Name" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_name !#</td>
+                                          </tr>
+
+                                          #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                          <tr>
+                                            <td id="_modDF_NameContact_0" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_NombreContactoPJ !#:</td>
+                                            <td id="_modDF_NameContact_1" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_nameContact !#</td>
+                                          </tr>
+                                          #!else!#
+                                          <tr style="display:none"></tr>
+                                          #!/if!#
+
+                                          <tr>
+                                            #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_DireccionPJ !#:</td>
+                                            #!else!#
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_DireccionPN !#:</td>
+                                            #!/if!#
+                                            <td id="_modDF_Address" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_address !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_Ciudad !#:</td>
+                                            <td id="_modDF_City" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_city !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_ZipCode !#:</td>
+                                            <td id="_modDF_ZipCode" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_zipCode !#</td>
+                                          </tr>
+
+ 
+                                          #!#if ($eq MB.data.data.traeDF_email1 '@') !#
+                                          <tr style="display:none"></tr>
+                                          #!else!#
+                                          <tr>
+                                            <td id="_modDF_Email1_0" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_EmailContacto1 !#:</td>
+                                            <td id="_modDF_Email1_1" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_email1 !#</td>
+                                          </tr>
+                                          #!/if!#
+ 
+                                          #!#if ($eq MB.data.data.traeDF_email2 '@') !#
+                                          <tr style="display:none"></tr>
+                                          #!else!#
+                                          <tr>
+                                            <td id="_modDF_Email2_0" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_EmailContacto2 !#:</td>
+                                            <td id="_modDF_Email2_1" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_email2 !#</td>
+                                          </tr>
+                                          #!/if!#
+
+                                          #!#if ($eq MB.data.data.traeDF_email3 '@') !#
+                                          <tr style="display:none"></tr>
+                                          #!else!#
+                                          <tr>
+                                            <td id="_modDF_Email3_0" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_EmailContacto3 !#:</td>
+                                            <td id="_modDF_Email3_1" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_email3 !#</td>
+                                          </tr>
+                                          #!/if!#
+
+                                          #!#if ($eq MB.data.data.traeDF_email4 '@') !#
+                                          <tr style="display:none"></tr>
+                                          #!else!#
+                                          <tr>
+                                            <td id="_modDF_Email4_0" style="font-weight: 600; padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_DF_EmailContacto4 !#:</td>
+                                            <td id="_modDF_Email4_1" style="padding: 5px 0px 2px 0px; font-size: 12px;line-height: 16px;border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeDF_email4 !#</td>
+                                          </tr>
+                                          #!/if!#
+
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px; width: 220px;">#! MB.data.data.grid_DF_codAgente !#:</td>
+                                            <td id="_modDF_CodAgente" style="padding: 5px 0px 10px 0px; font-size: 12px;line-height: 16px;">#! MB.data.data.traeDF_codAgente !#</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secModDatosFacturacion" style="display:none">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 13px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="right" width="100%" style="padding: 0px 0px 10px 0px; border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                    <div class="container" id="headModDatosFacturacion">
+                                      <div class="row row-cols-2 g-2 px-3">
+                                        <div align="left" style="padding: 0px 0px 0px 40px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_modTituloDatosFacturacion !#</strong></h6>
+                                        </div>
+                                        <div>
+                                          <a href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnModDatosFacturacion2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="container" id="bodyModDatosFacturacion">
+                                      <div class="row g-2 mt-2 px-3">
+
+                                        <!-- Ingreso de Rut -->
+                                        <div class="form-floating col-md-3" id="inputRutDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" maxlength="12" id="taxId" name="taxId" placeholder="Ingrese VAT" required value="#!MB.data.data.traeDF_vatId!#">
+                                          <label for="vatName" id="_lblVatName">#!MB.data.data.traeDF_vatName!#</label>
+                                        </div>
+
+                                        <!-- Ingreso de Nombre Cliente / Razón Social -->
+                                        <div class="form-floating col-md-9" id="inputNameDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="name" name="name" placeholder="Ingrese Nombre" required value="#!MB.data.data.traeDF_name!#">
+                                          #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                          <label for="name" id="_lblName">#! MB.data.data.grid_DF_NombrePJ !#:</label>
+                                          #!else!#
+                                          <label for="name" id="_lblName">#! MB.data.data.grid_DF_NombrePN !#:</label>
+                                          #!/if!#
+
+                                        </div>
+
+                                        <!-- Ingreso de Nombre Contacto Empresa -->
+                                        #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                        <div class="form-floating col-md-12" id="inputAttentionDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="attention" name="attention" placeholder="Ingrese Nombre Contacto" required value="#!MB.data.data.traeDF_nameContact!#">
+                                          <label for="attention">Nombre Contacto:</label>
+                                        </div>
+                                        #!/if!#
+
+                                        <!-- Ingreso de Direccion Cliente -->
+                                        <div class="form-floating col-md-12" id="inputAddressDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="address" name="address" placeholder="Ingrese Dirección" required value="#!MB.data.data.traeDF_address!#">
+                                          #!#if ($eq MB.data.data.traeRP_tipoEntidad 'Empresa') !#
+                                          <label for="address" id="_lblAddress">#! MB.data.data.grid_DF_DireccionPJ !#:</label>
+                                          #!else!#
+                                          <label for="address" id="_lblAddress">#! MB.data.data.grid_DF_DireccionPN !#:</label>
+                                          #!/if!#
+                                        </div>
+
+                                        <!-- Ingreso de Ciudad -->
+                                        <div class="form-floating col-md-6" id="inputCityDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="city" name="city" placeholder="Ingrese Ciudad" required value="#!MB.data.data.traeDF_city!#">
+                                          <label for="city">#! MB.data.data.grid_DF_Ciudad !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de ZipCode -->
+                                        <div class="form-floating col-md-3" id="inputZipCodeDIV">
+                                          <input type="number" style="font-size: 14px" class="form-control" id="zipCode" name="zipCode" placeholder="Ingrese ZipCode" required value="#!MB.data.data.traeDF_zipCode!#">
+                                          <label for="zip">#! MB.data.data.grid_DF_ZipCode !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo1 -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="email1" name="email1" placeholder="Ingrese email 1" required value="#!MB.data.data.traeDF_email1!#">
+                                          <label for="email1">#! MB.data.data.grid_DF_EmailContacto1 !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo2 -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="email2" name="email2" placeholder="Ingrese email 2" value="#!MB.data.data.traeDF_email2!#">
+                                          <label for="email2">#! MB.data.data.grid_DF_EmailContacto2 !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo3 -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="email3" name="email3" placeholder="Ingrese email 3" value="#!MB.data.data.traeDF_email3!#">
+                                          <label for="email3">#! MB.data.data.grid_DF_EmailContacto3 !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Correo4 -->
+                                        <div class="form-floating col-md-6">
+                                          <input type="email" style="font-size: 14px" class="form-control" id="email4" name="email4" placeholder="Ingrese email 4" value="#!MB.data.data.traeDF_email4!#">
+                                          <label for="email4">#! MB.data.data.grid_DF_EmailContacto4 !#:</label>
+                                        </div>
+
+                                        <!-- Codigo Vendedor -->
+                                        <div class="form-floating col-md-3">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="codSell" name="codSell" placeholder="Ingrese Código Vendedor" onblur="traeVendedor()" value="#!MB.data.data.traeDF_codAgente!#">
+                                          <label for="codSell">#! MB.data.data.grid_DF_codAgente !#:</label>
+                                        </div>
+
+                                        <!-- Nombre Vendedor -->
+                                        <div id="_sellerName" class="form-floating col-md-6" style="display:none;">
+                                          <input type="text" style="font-size: 14px" class="form-control" id="_lblSell" name="_lblSell" readonly="readonly">
+                                          <label for="_lblSell">#! MB.data.data.DF_lblInput_NombreAgente !#:</label>
+                                        </div>
+
+                                      </div>
+                                    </div>
+
+                                    <div class="container" id="footerModDatosFacturacion">
+                                      <div class="row row-cols-2 g-2 px-3">
+                                        <div></div>
+                                        <div >
+                                          <a href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnGuardaDatosFacturacion" onclick="verificaDatosFacturacion()" value="#! MB.data.data.btn_DF_GuardarDatosFacturacion !#">
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                      <!-- </form> -->
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secMetodoPago">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <a href="#">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditaMetodoPago" onclick="editarMetodoPago('#! traeRP_idRegistro !#')" value="#! MB.data.data.btn_MP_EditarMP !#">
+                                          </a>
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloMetodoPago !#</strong></h6>
+                                        </div>
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_FormaPago !#:</td>
+                                            <td id="_modMP_FormaPago" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_formaPago !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_NroTC !#:</td>
+                                            <td id="_modMP_NroCC" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_nroCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_FechaVcto !#:</td>
+                                            <td id="_modMP_FechaVcto" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_fechaVctoCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_CodVerificacion !#:</td>
+                                            <td id="_modMP_CodVerificacion" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_codVerificacionCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_Nombre !#:</td>
+                                            <td id="_modMP_NameCC" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_nameCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_Direccion !#:</td>
+                                            <td id="_modMP_AddressCC" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_addressCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC; width: 220px;">#! MB.data.data.grid_MP_Ciudad !#:</td>
+                                            <td id="_modMP_CityCC" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.traeMP_cityCC !#</td>
+                                          </tr>
+                                          <tr>
+                                            <td style="font-weight: 600; padding: 5px 0px 10px 0px; width: 220px;">#! MB.data.data.grid_MP_Pais !#:</td>
+                                            <td id="_modMP_CountryCC" style="padding: 5px 0px 10px 0px;">#! MB.data.data.traeMP_countryCC !#</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="secModMetodoPago" style="display:none">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 13px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="right" width="100%" style="padding: 0px 0px 10px 0px; border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div class="container" id="headModMetodoPago">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div align="left" style="padding: 0px 0px 0px 40px;">
+                                            <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_modTituloMetodoPago !#</strong></h6>
+                                          </div>
+                                          <!-- <h6 class="mt-3" style="padding: 25px 0px 2px 0px;">Modificar Método de Pago</h6> -->
+                                          <div>
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditarMetodoPago2" onclick="regresarEditar()" value="#! MB.data.data.btn_Regresar !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="bodyModMetodoPago">
+                                        <div class="row g-2 mt-2 px-3">
+
+                                        <!-- Selección de Forma de Pago -->
+                                        <div class="form-floating col-md-6">
+                                          <select class="form-select" style="font-size: 14px" id="paymentMethod" name="paymentMethod" disabled="true">
+                                            <!-- <option value="">Seleccione</option> -->
+                                            <option value="TC" selected>#! MB.data.data.MP_txt_TarjetaCredito !#</option>
+                                            <!-- <option value="Trx">Crédito MasterBase</option> -->
+                                          </select>
+                                          <label for="paymentMethod">#! MB.data.data.grid_MP_FormaPago !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso Nro TC -->
+                                        <div class="form-floating col-md-6" id="inputCreditCardNumberDIV" style>
+                                          <input type="text" style="font-size: 14px" class="form-control validaNros" id="creditCardNumber" name="creditCardNumber" onkeypress='return event.charCode >= 48 && event.charCode <= 57' autocomplete="cc-number" minlength="16" maxlength="16" placeholder="xxxx xxxx xxxx xxxx" required>
+                                          <label for="creditCardNumber">#! MB.data.data.grid_MP_NroTC !#:</label>
+                                          <div id="creditCard-validate"></div>
+                                        </div>
+
+                                        <!-- Ingreso Fecha Vencimiento -->
+                                        <div class="form-floating col-md-4" id="inputDueDateDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control" id="dueDate" name="dueDate" required placeholder="Ingrese Fecha Vcto." maxlength="5" pattern="[\d][\d][\x2F][\d][\d]">
+                                          <label id="ttDueDate" for="dueDate">#! MB.data.data.grid_MP_FechaVcto !#: <a class="fas fa-info-circle"></a></label>
+                                        </div>
+
+                                        <!-- Ingreso codigo 3 digitos -->
+                                        <div class="form-floating col-md-4" id="inputcvvDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control" id="cvv" name="cvv" placeholder="Ingrese código verificación" minlength="3" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                                          <label id="ttcvv" for="cvv">#! MB.data.data.grid_MP_CodVerificacion !#: <a class="fas fa-info-circle"></a></label>
+                                        </div>
+
+                                        <!-- Ingreso de Nombre TC -->
+                                        <div class="form-floating col-md-12" id="inputccNameDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="ccName" name="ccName" placeholder="Ingrese Nombre" pattern="^[a-zA-Z\s]{2,40}" required>
+                                          <label id="ttccName" for="ccName">#! MB.data.data.grid_MP_Nombre !#: <a class="fas fa-info-circle"></a></label>
+                                        </div>
+
+                                        <!-- Ingreso de Direccion TC -->
+                                        <div class="form-floating col-md-12" id="inputccAddressDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="ccAddress" name="ccAddress" placeholder="Ingrese Dirección" required>
+                                          <label for="ccAddress">#! MB.data.data.grid_MP_Direccion !#:</label>
+                                        </div>
+
+                                        <!-- Ingreso de Direccion Cliente -->
+                                        <div class="form-floating col-md-6" id="inputccCityDIV">
+                                          <input type="text" style="font-size: 14px" class="form-control text-uppercase" id="ccCity" name="ccCity" placeholder="Ingrese Ciudad" pattern="^[a-zA-Z\s]{2,40}" required>
+                                          <label for="ccCity">#! MB.data.data.grid_MP_Ciudad !#:</label>
+                                        </div>
+                                          
+                                        </div>
+                                      </div>
+
+                                      <div class="container" id="footerModMetodoPago">
+                                        <div class="row row-cols-2 g-2 px-3">
+                                          <div></div>
+                                          <div >
+                                            <a href="#">
+                                              <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnGuardaMetodoPago" onclick="verificaMetodoPago()" value="#! MB.data.data.btn_DF_GuardarMetodoPago !#">
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="mostarConsumos">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <a href="https://smartview.masterbase.com/v1/62c1eb37e5cd0700183e24ea/">
+                                            <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnMostrarConsumos" onclick="mostrarConsumos('#! traeRP_idRegistro !#')" value="#! MB.data.data.DC_txt_DetalleConsumos !#">
+                                          </a>
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloSA !#</strong></h6>
+                                        </div>
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_Index !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 10px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_SA !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_SKU !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_NombreSolucion !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_FechaSuscripcion !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_SA_Estado !#</th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody>
+                                          #!#each MB.data.consumos !#
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">$index</td>
+                                            <td style="padding: 5px 0px 2px 10px; border-bottom: 1px solid #ECECEC;">#! SA !#</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! SKU !#</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! solucion !#</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! $formatDate fechaContract 'YYYY-MM-DD' !#</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">#! status !#</td>
+                                          </tr>
+                                          #!/each!#
+
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">1</td>
+                                            <td style="padding: 5px 0px 2px 10px; border-bottom: 1px solid #ECECEC;">SA.0153</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">SKU.S.153</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">Generación y envío de Garantía Extendida</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">2022-03-25</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">Activa</td>
+                                          </tr>
+
+                                          <tr>
+                                            <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">2</td>
+                                            <td style="padding: 5px 0px 2px 10px; border-bottom: 1px solid #ECECEC;">SA.0141</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">SKU.MS.141</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">Control Teletrabajo</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">2022-04-02</td>
+                                            <td style="padding: 5px 0px 2px 5px; border-bottom: 1px solid #ECECEC;">Activa</td>
+                                          </tr>
+
+                                          <tr>
+                                            <td style="padding: 5px 0px 10px 0px;">3</td>
+                                            <td style="padding: 5px 0px 10px 10px;">SA.0142</td>
+                                            <td style="padding: 5px 0px 10px 5px;">SKU.MS.142</td>
+                                            <td style="padding: 5px 0px 10px 5px;">Icard (Tarjeta de negocios digital)</td>
+                                            <td style="padding: 5px 0px 10px 5px;">2022-04-05</td>
+                                            <td style="padding: 5px 0px 10px 5px;">Activa</td>
+                                          </tr>
+
+                                        </tbody>
+
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="mostrarInvoices">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+                                      <div>
+                                        <div style="float:right; padding: 0px 30px 2px 0px;">
+                                          <!-- <a href="#"> -->
+                                            <!-- <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnEditarMetodoPago" onclick="editarMetodoPago('#! traeRP_idRegistro !#')" value="Editar Método de Pago"> -->
+                                          <!-- </a> -->
+                                        </div>
+                                        <div align="left" style="padding: 0px 0px 0px 60px;">
+                                          <h6 class="mt-3" style="padding: 25px 0px 2px 0px;"><strong>#! MB.data.data.view_TituloInvoices !#</strong></h6>
+                                        </div>
+
+                                      </div>
+
+                                      <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col" style="display:none;">IdRegistro</th>
+                                            <th scope="col" style="display:none;">urlDetalle</th>
+                                            <th scope="col" style="display:none;">urlInvoice</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; text-align:center; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_Inv_Fecha !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; text-align:center; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_Inv_Numero !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_Inv_Descripcion !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_Inv_Monto !#</th>
+                                            <th scope="col" style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">#! MB.data.data.grid_Inv_Documento !#</th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody>
+                                          #!#each MB.data.billingAccount.billingAccount !#
+                                          <tr>
+                                            <td style="display:none;">#! IdRegistro !#</td>
+                                            <td>#! date !#</td>
+                                            <td>#! invoiceNumber !#</td>
+                                            <td>#! description !#</td>
+                                            <td>#! amount !#</td>
+                                            <td style="padding: 5px 0px 2px 0px;"><a href="#" onclick="verConsumos('#! IdRegistro !#')"><i class="far fa-file-pdf"></i> Invoice PDF</a>  |  <a href="#" onclick="verConsumos('#! IdRegistro !#')"><i class="far fa-receipt"></i> Detalle CSV</a></td>
+                                          </tr>
+                                          #!/each!#
+
+                                          <tr>
+                                            <td style="display:none;">#! IdRegistro !#</td>
+                                            <td style="padding: 5px 0px 2px 0px; text-align:center; border-bottom: 1px solid #ECECEC;">2022-07-01</td>
+                                            <td style="padding: 5px 0px 2px 0px; text-align:center; border-bottom: 1px solid #ECECEC;">1264</td>
+                                            <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">Invoice Julio 2022</td>
+                                            <td style="padding: 5px 0px 2px 0px; border-bottom: 1px solid #ECECEC;">$21.35</td>
+                                            <td style="padding: 5px 0px 10px 0px; border-bottom: 1px solid #ECECEC;"><a href="#" onclick="verConsumos('#! IdRegistro !#')"><i class="far fa-file-pdf"></i> Invoice PDF</a>  |  <a href="#" onclick="verPago('#! IdRegistro !#')"><i class="far fa-receipt"></i> Detalle Pago</a></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td style="display:none;">#! IdRegistro !#</td>
+                                            <td style="padding: 5px 0px 10px 0px; text-align:center;">2022-06-01</td>
+                                            <td style="padding: 5px 0px 10px 0px; text-align:center;">1234</td>
+                                            <td style="padding: 5px 0px 10px 0px;">Invoice Junio 2022</td>
+                                            <td style="padding: 5px 0px 10px 0px;">$46.80</td>
+                                            <td style="padding: 5px 0px 10px 0px;"><a href="#" onclick="verConsumos('#! IdRegistro !#')"><i class="far fa-file-pdf"></i> Invoice PDF</a>  |  <a href="#" onclick="verPago('#! IdRegistro !#')"><i class="far fa-receipt"></i> Detalle Pago</a></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </fieldset>
+                                  </td>
+                                </tr>
+
+                                <tr id="btnDesuscribe">
+                                  <td style="background: #fff; padding: 20px 20px 10px 20px; font-family: 'Titillium Web', arial; color: #5b5b5b; font-size: 14px; line-height: 18px; text-align: justify;">
+                                    <fieldset align="center" width="100%" style="border-radius: 10px; border: 1px solid #ECECEC;">
+
+                                      <div>
+                                        <div align="center" style="padding: 0px 0px 0px 60px;">
+                                          <input type="button" class="btn btn-primary btn-lg btn-block my-3" id="btnDesuscribir" onclick="bajaServicio('#! MB.data.data.traeRP_idRegistro !#')" value="#! MB.data.data.btn_darBajaBACC !#">
+                                        </div>
+                                      </div>
+
+                                    </fieldset>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 20px 0px 0px 0px; vertical-align: top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="tabla-texto" width="100%">
+                      <tbody>
+                        <tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        #!/if!#
+
+      </form>
+    </div>
+  </div><!-- cierre -->
+
+  <form id="formConfirmPlan">
+    <div class="modal fade" id="modalConfirmPlan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <!-- <div class="modal-dialog modal-lg modal-dialog-scrollable"> -->
+      <div class="modal-dialog modal-dialog-centered">
+      <!-- <div class="modal-dialog modal-sm"> -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="staticBackdropLabel"><i class="far fa-edit"></i> #! MB.data.data.txt_modalConfirmarDatos !#</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="container" id="mensajeModModDatosPlan">
+              <div class="row g-2">
+                <p class="text" id="newResultadoModal" align="left" style="font-size: 14px"></p>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">#! MB.data.data.txt_modalCancelar !#</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveDatosPlan()">#! MB.data.data.txt_modalAceptar !#</button>
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form id="formAddUserAdmin">
+    <div class="modal fade" id="modalConfirmUserAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <!-- <div class="modal-dialog modal-lg modal-dialog-scrollable"> -->
+        <div class="modal-dialog modal-dialog-centered">
+        <!-- <div class="modal-dialog modal-sm"> -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="staticBackdropLabel"><i class="far fa-edit"></i> #! MB.data.data.txt_modalConfirmarDatosUserAdmin !#</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <ul>
+                <li><strong>Nombre: </strong><span id="confirmNameUser"></span></li>
+                <li><strong>Apellido: </strong><span id="confirmlastNameUser"></span></li>
+                <li><strong>Email: </strong><span id="confirmEmailUser"></span></li>
+                <li><strong>Contacto: </strong><span id="confirmPhoneUser"></span></li>
+              </ul>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">#! MB.data.data.txt_modalCancelarUserAdmin !#</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveUserAdmin()">#! MB.data.data.txt_modalAceptarUserAdmin !#</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form id="formDelUserAdmin">
+    <div class="modal fade" id="modalDeleteUserAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <!-- <div class="modal-dialog modal-lg modal-dialog-scrollable"> -->
+        <div class="modal-dialog modal-dialog-centered">
+        <!-- <div class="modal-dialog modal-sm"> -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="staticBackdropLabel"><i class="far fa-edit"></i> #! MB.data.data.txt_modalConfirmarBorrarUserAdmin !#</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <ul>
+                <li style="display: none;"><strong>id: </strong><span id="deleteIdx"></span></li>
+                <li><strong>Nombre: </strong><span id="deleteNameUser"></span></li>
+                <li><strong>Email: </strong><span id="deleteEmailUser"></span></li>
+              </ul>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">#! MB.data.data.txt_modalCancelarUserAdmin !#</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteUserAdmin()">#! MB.data.data.txt_modalBorrarUserAdmin !#</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- mis script -->
+  <script type="text/javascript" src="https://www.cruzmuga.cl/masterbase/PA/js/scriptEdit.js"></script>
+
+</body>
+</html>
